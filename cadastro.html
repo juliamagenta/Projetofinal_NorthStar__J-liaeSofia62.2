@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="North Stars: informação e organização para sua jornada de intercâmbio.">
+  <meta name="theme-color" content="#205646">
+  <title>Cadastro | North Stars</title>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%3E%3Cpath%20fill%3D%22%231a5790%22%20d%3D%22M24%202%2030%2018%2046%2024%2030%2030%2024%2046%2018%2030%202%2024%2018%2018Z%22%2F%3E%3Cpath%20fill%3D%22%23bc3e3f%22%20d%3D%22M24%202%2024%2024%202%2024%2018%2018Z%22%2F%3E%3C%2Fsvg%3E"
+    type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="images.css">
+  <script src="js/visuals.js" defer></script>
+  <script src="js/common.js" defer></script>
+  <script src="js/cadastro.js" defer></script>
+</head>
+
+<body class="entry-page cadastro" data-page="cadastro">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" tabindex="-1" class="auth-layout">
+    <div class="auth-art" aria-hidden="true"><img class="artwork artwork-globe"
+        src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22746%22%20height%3D%22443%22%2F%3E"
+        alt="" width="770" height="457"><img class="auth-plane artwork artwork-plane"
+        src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22820%22%20height%3D%22355%22%2F%3E"
+        alt="" width="800" height="346"></div>
+    <section class="auth-panel" aria-labelledby="auth-title"><a class="back-link" href="index.html"><svg class="icon "
+          aria-hidden="true" focusable="false">
+          <use href="#north-stars-back"></use>
+        </svg>Voltar</a><a class="brand" href="index.html"><img class="artwork artwork-logo"
+          src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22500%22%20height%3D%22500%22%2F%3E"
+          alt="" width="58" height="58"><span>North<span class="brand-red">Stars</span></span></a>
+      <div class="auth-avatar"><svg class="icon " aria-hidden="true" focusable="false">
+          <use href="#north-stars-user"></use>
+        </svg></div>
+      <h1 id="auth-title">Sua jornada começa aqui</h1>
+      <p>Seu próximo passo está mais perto.</p>
+      <form id="auth-form"><label class="field" for="nome"><span>Nome</span><input id="nome" name="nome" type="text"
+            required autocomplete="name" maxlength="80"></label><label class="field"
+          for="email"><span>E-mail</span><input id="email" name="email" type="email" required autocomplete="email"
+            maxlength="160"></label><label class="field" for="senha"><span>Senha</span><input id="senha" name="senha"
+            type="password" required minlength="6" autocomplete="new-password"></label><label class="field"
+          for="confirmar"><span>Confirmar senha</span><input id="confirmar" name="confirmar" type="password" required
+            minlength="6" autocomplete="new-password"></label>
+        <p class="form-error" id="auth-error" role="alert" hidden></p><button class="button" type="submit">Criar
+          perfil<svg class="icon " aria-hidden="true" focusable="false">
+            <use href="#north-stars-arrow"></use>
+          </svg></button>
+      </form>
+      <p class="auth-note">Seu perfil fica salvo neste navegador.</p>
+      <p class="auth-switch">Já tem um perfil? <a href="login.html">Entrar</a></p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+
+</html>
