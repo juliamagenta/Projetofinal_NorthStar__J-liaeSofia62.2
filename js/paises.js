@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   const list = document.getElementById('country-list');
   const search = document.getElementById('country-search');
   let filter = 'all';

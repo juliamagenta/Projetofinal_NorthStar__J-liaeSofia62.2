@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   const checklist = document.getElementById('required-documents');
   const list = document.getElementById('personal-documents');
   const form = document.getElementById('document-form');
@@ -13,7 +13,10 @@
     document.getElementById('document-progress').textContent = `${app.state.completedDocuments.length} de ${app.data.documents.length} prontos`;
     list.innerHTML = app.state.documents.length ? app.state.documents.map((item) => `<li class="record-card"><span class="icon-box ${item.status === 'pronto' ? 'green' : 'blue'}">${app.icon('book')}</span><div class="record-copy"><strong>${app.escape(item.title)}</strong><small>${item.status === 'pronto' ? 'Pronto' : 'Pendente'}</small></div><div class="record-actions"><button class="icon-button" type="button" data-edit-document="${app.escape(item.id)}" aria-label="Editar ${app.escape(item.title)}">${app.icon('edit')}</button><button class="icon-button danger" type="button" data-delete-document="${app.escape(item.id)}" aria-label="Excluir ${app.escape(item.title)}">${app.icon('trash')}</button></div></li>`).join('') : app.empty('Você ainda não adicionou documentos.', 'book');
   };
-  app.opening.set('document-dialog', () => { if (!id.value) form.reset(); });
+  app.opening.set('document-dialog', () => {
+    document.getElementById('document-dialog-title').textContent = id.value ? 'Editar documento' : 'Adicionar documento';
+    if (!id.value) form.reset();
+  });
   dialog.addEventListener('close', () => { id.value = ''; form.reset(); title.setCustomValidity(''); });
   checklist.addEventListener('change', (event) => {
     if (!event.target.matches('[data-document-index]')) return;

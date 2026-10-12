@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   const list = document.getElementById('timeline');
   const form = document.getElementById('plan-form');
   const addMonths = (value, amount) => {

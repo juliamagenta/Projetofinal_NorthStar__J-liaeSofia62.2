@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   document.querySelectorAll('[data-type]').forEach((button) => {
     button.addEventListener('click', () => {
       const item = app.data.types.find((type) => type[4] === button.dataset.type);

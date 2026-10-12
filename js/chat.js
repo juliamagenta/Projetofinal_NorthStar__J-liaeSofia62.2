@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   const list = document.getElementById('chat-messages');
   const form = document.getElementById('chat-form');
   const input = document.getElementById('message');

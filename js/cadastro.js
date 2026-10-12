@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   const form = document.getElementById('auth-form');
   const confirmation = document.getElementById('confirmar');
   const error = document.getElementById('auth-error');

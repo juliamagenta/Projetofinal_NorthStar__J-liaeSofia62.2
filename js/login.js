@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   const form = document.getElementById('auth-form');
   const error = document.getElementById('auth-error');
   form.addEventListener('submit', (event) => {

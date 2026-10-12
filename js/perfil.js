@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   const form = document.getElementById('profile-form');
   const error = document.getElementById('profile-error');
   const render = () => { app.updateProfile(); document.getElementById('profile-plans').textContent = app.state.plan.saved ? '1' : '0'; document.getElementById('profile-favorites').textContent = app.state.favorites.length; document.getElementById('profile-documents').textContent = app.state.documents.length; };

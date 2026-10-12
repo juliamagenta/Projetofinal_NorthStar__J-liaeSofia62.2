@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   const form = document.getElementById('support-form');
   const list = document.getElementById('support-list');
   const render = () => { list.innerHTML = app.state.support.map((item) => `<li class="record-card"><span class="icon-box green">${app.icon('headphones')}</span><div class="record-copy"><strong>${app.escape(item.subject)}</strong><small>${app.escape(item.message)}</small></div><button class="icon-button danger" type="button" data-delete-support="${app.escape(item.id)}" aria-label="Excluir dúvida ${app.escape(item.subject)}">${app.icon('trash')}</button></li>`).join(''); };

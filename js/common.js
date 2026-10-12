@@ -1,6 +1,8 @@
 (() => {
   'use strict';
-  const KEY = 'north-stars.v1';
+  const KEY = 'north-star.v1';
+  // Lê a chave anterior para manter os dados após a correção do nome.
+  const LEGACY_KEY = 'north-stars.v1';
   const data = {
     "countries": [
       {
@@ -175,7 +177,7 @@
   };
   const dateFromISO = (value) => new Date(`${value}T12:00:00`);
   const escape = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
-  const icon = (name) => `<svg class="icon" aria-hidden="true" focusable="false"><use href="#north-stars-${escape(name)}"></use></svg>`;
+  const icon = (name) => `<svg class="icon" aria-hidden="true" focusable="false"><use href="#north-star-${escape(name)}"></use></svg>`;
   const uid = () => globalThis.crypto?.randomUUID?.() || `item-${Date.now()}-${Math.random().toString(36).slice(2)}`;
   const defaults = {
     version: 1,
@@ -204,13 +206,16 @@
       { id: 'msg-example-4', author: 'Rafael', text: 'Tem alguém indo para o Canadá em setembro?', time: 'Ontem', own: false }
     ],
     plan: { country: 'canada', type: 'Estudo + trabalho', start: '2027-01-12', duration: 12, completed: [], saved: false },
-    budget: 0,
+    budget: null,
     selectedCountry: 'canada',
     support: []
   };
   const object = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
   let stored = null;
   try { stored = JSON.parse(localStorage.getItem(KEY)); } catch { stored = null; }
+  if (!object(stored)) {
+    try { stored = JSON.parse(localStorage.getItem(LEGACY_KEY)); } catch { stored = null; }
+  }
   const state = { ...defaults };
   if (object(stored)) {
     for (const key of ['profile', 'preferences', 'plan']) {
@@ -226,7 +231,11 @@
   state.profile.email = typeof state.profile.email === 'string' ? state.profile.email.slice(0, 160) : defaults.profile.email;
   state.profile.phone = typeof state.profile.phone === 'string' ? state.profile.phone.slice(0, 25) : '';
   state.profile.photo = typeof state.profile.photo === 'string' && /^data:image\/(png|jpeg|webp);base64,/.test(state.profile.photo) ? state.profile.photo : '';
-  const validDate = (value) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(dateFromISO(value).getTime());
+  const validDate = (value) => {
+    if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+    const date = dateFromISO(value);
+    return !Number.isNaN(date.getTime()) && date.getFullYear() === Number(value.slice(0, 4)) && date.getMonth() + 1 === Number(value.slice(5, 7)) && date.getDate() === Number(value.slice(8, 10));
+  };
   state.tasks = state.tasks.filter((item) => object(item) && typeof item.id === 'string' && typeof item.title === 'string' && validDate(item.date));
   state.documents = state.documents.filter((item) => object(item) && typeof item.id === 'string' && typeof item.title === 'string');
   state.messages = state.messages.filter((item) => object(item) && typeof item.id === 'string' && typeof item.text === 'string' && typeof item.author === 'string');
@@ -234,12 +243,15 @@
   state.support = state.support.filter((item) => object(item) && typeof item.id === 'string' && typeof item.subject === 'string' && typeof item.message === 'string');
   state.searches = state.searches.filter((item) => typeof item === 'string').slice(0, 5);
   state.favorites = state.favorites.filter((id) => data.countries.some((country) => country.id === id));
-  state.completedDocuments = state.completedDocuments.filter((index) => Number.isInteger(index) && index >= 0 && index < data.documents.length);
-  state.plan.completed = Array.isArray(state.plan.completed) ? state.plan.completed.filter((id) => Number.isInteger(id) && id >= 0 && id < 5) : [];
+  state.completedDocuments = [...new Set(state.completedDocuments.filter((index) => Number.isInteger(index) && index >= 0 && index < data.documents.length))];
+  state.plan.completed = Array.isArray(state.plan.completed) ? [...new Set(state.plan.completed.filter((id) => Number.isInteger(id) && id >= 0 && id < 5))] : [];
   if (!validDate(state.plan.start)) state.plan.start = defaults.plan.start;
   if (!data.countries.some((country) => country.id === state.plan.country)) state.plan.country = defaults.plan.country;
   if (!Number.isInteger(state.plan.duration) || state.plan.duration < 1 || state.plan.duration > 60) state.plan.duration = defaults.plan.duration;
-  if (typeof state.plan.type !== 'string') state.plan.type = defaults.plan.type;
+  if (!['Estudo + trabalho', 'Estudos no exterior', 'Au Pair', 'Voluntariado', 'Programa de férias'].includes(state.plan.type)) state.plan.type = defaults.plan.type;
+  if (typeof state.preferences.notifications !== 'boolean') state.preferences.notifications = defaults.preferences.notifications;
+  state.plan.saved = state.plan.saved === true;
+  let savedState = JSON.stringify(state);
   let toastTimer;
   const toast = (message) => {
     const element = document.getElementById('toast');
@@ -250,8 +262,16 @@
     toastTimer = setTimeout(() => { element.hidden = true; }, 3800);
   };
   const save = () => {
-    try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
-    catch { toast('Não foi possível salvar. Verifique o espaço ou as permissões deste navegador.'); return false; }
+    try {
+      const snapshot = JSON.stringify(state);
+      localStorage.setItem(KEY, snapshot);
+      savedState = snapshot;
+      return true;
+    } catch {
+      Object.assign(state, JSON.parse(savedState));
+      toast('Não foi possível salvar. Verifique o espaço ou as permissões deste navegador.');
+      return false;
+    }
   };
   const updateProfile = () => {
     document.querySelectorAll('[data-profile-name]').forEach((element) => { element.textContent = state.profile.name.split(' ')[0]; });
@@ -272,7 +292,7 @@
     document.querySelectorAll('.notification-dot').forEach((element) => { element.hidden = !unread || !state.preferences.notifications; });
   };
   const empty = (message, name = 'compass') => `<li class="empty-state">${icon(name)}<p>${escape(message)}</p></li>`;
-  const currency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(value);
+  const currency = (value, fractionDigits = 0) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: fractionDigits, maximumFractionDigits: fractionDigits }).format(value);
   const formatDate = (value, options = { day: 'numeric', month: 'long' }) => dateFromISO(value).toLocaleDateString('pt-BR', options);
   const activate = (selector, selected) => {
     document.querySelectorAll(selector).forEach((button) => {
@@ -303,6 +323,6 @@
   });
   updateProfile();
   updateNotifications();
-  if (stored === null) save();
-  window.NorthStars = { state, data, save, toast, escape, icon, uid, today, dateFromISO, formatDate, currency, activate, open, opening, empty, updateProfile, updateNotifications };
+  save();
+  window.NorthStar = { state, data, save, toast, escape, icon, uid, today, dateFromISO, formatDate, currency, activate, open, opening, empty, updateProfile, updateNotifications };
 })();

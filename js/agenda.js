@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = window.NorthStars;
+  const app = window.NorthStar;
   let selected = app.today();
   let visible = app.dateFromISO(selected);
   visible.setDate(1);

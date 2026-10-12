@@ -39,7 +39,7 @@
   definitions.setAttribute('aria-hidden', 'true');
   definitions.setAttribute('focusable', 'false');
   definitions.innerHTML = Object.entries(icons).map(([name, paths]) =>
-    `<symbol id="north-stars-${name}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</symbol>`
+    `<symbol id="north-star-${name}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</symbol>`
   ).join('');
   document.body.prepend(definitions);
 
@@ -50,7 +50,7 @@
     'compass.png': ['compass', 394, 443]
   };
 
-  window.NorthStarsVisuals = {
+  window.NorthStarVisuals = {
     image(name, className = '', width = 400) {
       const [type, sourceWidth, sourceHeight] = illustrations[name] || illustrations['london.svg'];
       const height = Math.round(width * sourceHeight / sourceWidth);
