@@ -2,6 +2,7 @@
 
 Site de planejamento de intercâmbio desenvolvido por **Júlia Zanini Stein e Sofia França Cavalheiro**, da turma **62.2**.
 O projeto reúne destinos, modalidades de intercâmbio, dicas, custos, documentos, agenda e cronograma em uma interface feita com HTML, CSS e JavaScript.
+
 North Star lista dos critérios de avaliação:
 
 Deploy e Funcionamento — 2,0 pontos A aplicação possui um index.html como página inicial. Os arquivos HTML, CSS e JavaScript estão organizados no projeto. Os arquivos CSS e JavaScript são referenciados corretamente. a URL do deploy da aplicação abre sem tela branca. Não existem erros de carregamento de CSS ou JavaScript identificados após o teste. Não existem pastas expostas ou páginas quebradas.
@@ -17,5 +18,6 @@ Estabilidade do Console — 2,0 pontos O código possui tratamento de erros em o
 Por quê? O código possui mecanismos de tratamento de erros e validações. O console foi testado juntamente das suas aplicações e não há erros encontrados.
 
 Adaptabilidade, Responsividade e Acessibilidade — 2,0 pontos O HTML possui meta name="viewport". O projeto possui CSS responsivo. Existem media queries para diferentes tamanhos de tela. O layout se adapta a celulares. O layout se adapta a tablets. Os grids são reorganizados em telas menores. Os formulários se adaptam a telas pequenas. O menu possui adaptação para dispositivos móveis. As imagens possuem descrições utilizando alt quando necessário. São utilizados atributos aria-label. São utilizados atributos aria-current. São utilizados atributos aria-pressed. Existe link para pular diretamente para o conteúdo. Existem elementos HTML semânticos como main, nav, header, section, article e form. Existe indicação visual de foco para navegação por teclado. Aplicação na visualização de celular do DevTools bem sucedida. Não existe barra de rolagem horizontal indesejada.
+
 Por quê? A aplicação possui recursos de responsividade e acessibilidade. O CSS adapta o layout para diferentes tamanhos de tela e o HTML utiliza elementos semânticos e atributos de acessibilidade para facilitar a utilização por leitores de tela.
 
