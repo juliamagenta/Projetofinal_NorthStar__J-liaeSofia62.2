@@ -238,7 +238,7 @@
   };
   state.tasks = state.tasks.filter((item) => object(item) && typeof item.id === 'string' && typeof item.title === 'string' && validDate(item.date));
   state.documents = state.documents.filter((item) => object(item) && typeof item.id === 'string' && typeof item.title === 'string');
-  state.messages = state.messages.filter((item) => object(item) && typeof item.id === 'string' && typeof item.text === 'string' && typeof item.author === 'string');
+  // O histórico antigo permanece intacto; o chat usa armazenamento próprio por conta.
   state.notifications = state.notifications.filter((item) => object(item) && typeof item.id === 'string' && typeof item.title === 'string');
   state.support = state.support.filter((item) => object(item) && typeof item.id === 'string' && typeof item.subject === 'string' && typeof item.message === 'string');
   state.searches = state.searches.filter((item) => typeof item === 'string').slice(0, 5);
@@ -271,6 +271,44 @@
       Object.assign(state, JSON.parse(savedState));
       toast('Não foi possível salvar. Verifique o espaço ou as permissões deste navegador.');
       return false;
+    }
+  };
+  const normalizeEmail = (value) => String(value ?? '').trim().toLowerCase();
+  const chatKey = (email) => `north-star.chat.v1:${encodeURIComponent(normalizeEmail(email))}`;
+  const readChatMessages = (email) => {
+    const raw = localStorage.getItem(chatKey(email));
+    if (raw === null) return [];
+    const messages = JSON.parse(raw);
+    if (!Array.isArray(messages) || !messages.every((item) => object(item) &&
+      ['id', 'author', 'text', 'time'].every((key) => typeof item[key] === 'string'))) {
+      throw new Error('Não foi possível ler o histórico desta conta.');
+    }
+    return messages.map((message) => ({ ...message, own: true }));
+  };
+  const chat = {
+    key: chatKey,
+    account() {
+      // Consulta o perfil salvo para não enviar pela conta antiga de outra aba.
+      const current = JSON.parse(localStorage.getItem(KEY) ?? localStorage.getItem(LEGACY_KEY));
+      if (!object(current?.profile) || !normalizeEmail(current.profile.email)) {
+        throw new Error('Entre em um perfil para usar o chat.');
+      }
+      return { id: normalizeEmail(current.profile.email), name: String(current.profile.name || 'Você') };
+    },
+    history(email) {
+      return [...defaults.messages.map((message) => ({ ...message })), ...readChatMessages(email)];
+    },
+    send(email, text) {
+      const account = chat.account();
+      if (account.id !== normalizeEmail(email)) throw new Error('A conta do chat mudou.');
+      const messages = readChatMessages(account.id);
+      const message = {
+        id: uid(), author: account.name.trim().split(/\s+/)[0], text,
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), own: true
+      };
+      // Não altera o estado nem a tela antes de a gravação terminar com sucesso.
+      localStorage.setItem(chatKey(account.id), JSON.stringify([...messages, message]));
+      return [...defaults.messages.map((item) => ({ ...item })), ...messages, message];
     }
   };
   const updateProfile = () => {
@@ -324,5 +362,5 @@
   updateProfile();
   updateNotifications();
   save();
-  window.NorthStar = { state, data, save, toast, escape, icon, uid, today, dateFromISO, formatDate, currency, activate, open, opening, empty, updateProfile, updateNotifications };
+  window.NorthStar = { state, data, save, chat, toast, escape, icon, uid, today, dateFromISO, formatDate, currency, activate, open, opening, empty, updateProfile, updateNotifications };
 })();

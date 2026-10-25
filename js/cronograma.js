@@ -3,6 +3,19 @@
   const app = window.NorthStar;
   const list = document.getElementById('timeline');
   const form = document.getElementById('plan-form');
+  const url = new URL(window.location.href);
+  const destination = app.data.countries.find((country) => country.id === url.searchParams.get('pais'));
+  if (destination) {
+    app.state.plan.country = destination.id;
+    if (app.save()) {
+      // Consome a escolha para uma edição posterior não ser desfeita ao recarregar.
+      url.searchParams.delete('pais');
+      window.history.replaceState(window.history.state, '', url);
+    } else {
+      // A escolha do link ainda pode ser exibida quando o navegador não permite salvar.
+      app.state.plan.country = destination.id;
+    }
+  }
   const addMonths = (value, amount) => {
     const date = app.dateFromISO(value);
     const day = date.getDate();
@@ -14,7 +27,7 @@
     const plan = app.state.plan;
     const country = app.data.countries.find((item) => item.id === plan.country);
     document.getElementById('plan-destination').textContent = country.name;
-    const flag = document.getElementById('plan-flag'); flag.textContent = country.flag; flag.setAttribute('aria-label', `Bandeira de ${country.name}`);
+    document.getElementById('plan-flag').innerHTML = NorthStarVisuals.flag(country);
     document.getElementById('plan-summary').textContent = `${plan.type} · ${plan.duration} ${plan.duration === 1 ? 'mês' : 'meses'}`;
     const steps = [['Planejamento', 'Documentos, visto e inscrição', addMonths(plan.start, -5)], ['Preparação', 'Idioma e organização', addMonths(plan.start, -3)], ['Chegada', 'Chegada e acomodação', plan.start], ['Intercâmbio', 'Estudos e novas experiências', addMonths(plan.start, 1)], ['Retorno', 'Avaliação e próximos passos', addMonths(plan.start, plan.duration)]];
     document.getElementById('plan-progress').textContent = `${plan.completed.length} de 5 etapas concluídas`;

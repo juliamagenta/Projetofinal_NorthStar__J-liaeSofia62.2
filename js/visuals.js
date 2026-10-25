@@ -50,7 +50,22 @@
     'compass.png': ['compass', 394, 443]
   };
 
+  const flags = new Map([
+    ['canada', ['ca', 160]],
+    ['eua', ['us', 168]],
+    ['australia', ['au', 160]],
+    ['irlanda', ['ie', 160]],
+    ['reino-unido', ['gb', 160]],
+    ['alemanha', ['de', 192]]
+  ]);
+
   window.NorthStarVisuals = {
+    flag(country) {
+      const flag = flags.get(country?.id);
+      if (!flag) return '';
+      const [code, height] = flag;
+      return `<img class="flag" src="assets/flags/${code}.png" alt="Bandeira de ${window.NorthStar.escape(country.name)}" width="320" height="${height}">`;
+    },
     image(name, className = '', width = 400) {
       const [type, sourceWidth, sourceHeight] = illustrations[name] || illustrations['london.svg'];
       const height = Math.round(width * sourceHeight / sourceWidth);

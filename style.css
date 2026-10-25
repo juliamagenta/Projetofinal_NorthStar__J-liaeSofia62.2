@@ -1080,8 +1080,11 @@ input[type=file]::file-selector-button {
 
 .flag {
   font-size: 36px;
-  line-height: 1.2;
-  display: inline-flex;
+  width: 1.5em;
+  height: 1em;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
   flex-shrink: 0
 }
 
@@ -1810,19 +1813,30 @@ input[type=file]::file-selector-button {
   flex-direction: column
 }
 
-.tip-card>img {
+.tip-illustration {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  place-items: center;
+  overflow: hidden
+}
+
+.tip-illustration>img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%
+}
+
+.tip-card>.tip-illustration {
   height: 170px;
   width: 100%;
-  object-fit: cover;
-  background: #dfebdf
+  padding: 16px;
+  background-color: #dfebdf
 }
 
-.tip-card>img[src$='.png'] {
-  object-fit: contain;
-  padding: 20px
-}
-
-.tip-card>div {
+.tip-card>.tip-copy {
   padding: 22px
 }
 
@@ -1861,10 +1875,10 @@ input[type=file]::file-selector-button {
 
 .article-image {
   width: 100%;
-  max-height: 210px;
-  object-fit: cover;
+  height: 210px;
+  padding: 16px;
   border-radius: 13px;
-  background: var(--mint);
+  background-color: var(--mint);
   margin-bottom: 20px
 }
 
@@ -2028,6 +2042,10 @@ input[type=file]::file-selector-button {
 
 .plan-label>span {
   font-size: 40px
+}
+
+.plan-label .flag {
+  font-size: inherit
 }
 
 .plan-label h2 {
@@ -3175,16 +3193,13 @@ dialog::backdrop {
     align-items: center
   }
 
-  .tip-card>img {
+  .tip-card>.tip-illustration {
     height: 110px;
+    padding: 8px;
     border-radius: 10px
   }
 
-  .tip-card>img[src$='.png'] {
-    padding: 8px
-  }
-
-  .tip-card>div {
+  .tip-card>.tip-copy {
     padding: 5px 0
   }
 

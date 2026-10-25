@@ -168,9 +168,12 @@
         for="profile-email"><span>E-mail</span><input id="profile-email" name="profile-email" type="email" required
           maxlength="160" autocomplete="email"></label><label class="field"
         for="profile-phone"><span>Telefone</span><input id="profile-phone" name="profile-phone" type="tel"
-          maxlength="25" autocomplete="tel"></label><label class="field" for="profile-photo"><span>Foto de
+          maxlength="25" autocomplete="tel"></label>
+      <div class="profile-avatar" id="profile-photo-preview" role="img" aria-label="Prévia da foto de perfil"></div>
+      <label class="field" for="profile-photo"><span>Foto de
           perfil</span><input type="file" id="profile-photo" accept="image/png,image/jpeg,image/webp"></label>
       <p class="muted">PNG, JPG ou WebP, até 500 KB.</p>
+      <button class="text-button" type="button" id="remove-profile-photo" hidden>Remover foto</button>
       <p id="profile-error" class="form-error" role="alert" hidden></p><button class="button" type="submit">Salvar
         alterações</button>
     </form>

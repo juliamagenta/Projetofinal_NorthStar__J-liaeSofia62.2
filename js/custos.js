@@ -6,7 +6,7 @@
   const costs = [['Curso e acomodação', 'briefcase', 3000, 12000], ['Passagem aérea', 'plane', 800, 2500], ['Seguro viagem', 'heart', 300, 600], ['Gastos pessoais', 'leaf', 150, 1000]];
   const render = () => {
     const country = countries[selected];
-    document.getElementById('selected-country').innerHTML = `<span class="flag" role="img" aria-label="Bandeira de ${app.escape(country.name)}">${country.flag}</span>${app.escape(country.name)}`;
+    document.getElementById('selected-country').innerHTML = `${NorthStarVisuals.flag(country)}${app.escape(country.name)}`;
     document.getElementById('cost-list').innerHTML = costs.map(([label, icon, min, max]) => `<article class="cost-card">${app.icon(icon)}<div><h3>${label}</h3><p>${app.currency(min * country.cost)} – ${app.currency(max * country.cost)}</p></div></article>`).join('');
     document.getElementById('budget').value = app.state.budget ?? '';
     document.getElementById('budget-result').textContent = app.state.budget !== null ? `Seu orçamento salvo: ${app.currency(app.state.budget, 2)}.` : '';
