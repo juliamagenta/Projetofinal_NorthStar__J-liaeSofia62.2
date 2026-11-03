@@ -18,20 +18,4 @@ O projeto reúne destinos, modalidades de intercâmbio, dicas, custos, documento
 | Estabilidade do Console | 2,0 pontos | Sem erros do site identificados nos testes realizados | O código possui validações de formulários e tratamento de falhas em operações de armazenamento. Não foram identificados erros do site durante a navegação pelas 17 páginas e os testes de criação, edição, exclusão e persistência na Agenda e em Documentos. |
 | Adaptabilidade, Responsividade e Acessibilidade | 2,0 pontos | Recursos implementados; conferir visualmente em celular antes da apresentação | O HTML possui `meta viewport` e o CSS usa media queries para reorganizar menus, grades e formulários em diferentes larguras. Há textos alternativos em imagens informativas, rótulos nos campos, elementos HTML semânticos, atributos ARIA, link para pular ao conteúdo e indicação visual de foco para navegação por teclado. |
 
-**Observação sobre a navegação:** o login e o cadastro de perfil redirecionam para a página inicial após salvar. A demonstração de cadastro, edição e exclusão sem recarregamento pode ser feita na Agenda ou em Documentos.
 
-## Como conferir os critérios na apresentação
-
-1. Abra a aplicação pelo link do GitHub Pages.
-2. Entre em **Agenda** ou **Requisitos e documentos**.
-3. Cadastre um item, edite suas informações e confira a alteração na tela.
-4. Pressione **F5** e confirme que os dados continuam salvos.
-5. Exclua o item de teste e atualize novamente para confirmar a exclusão.
-6. Abra o **DevTools**, na aba **Console**, e confira se as ações geram erros do site.
-7. Ative a visualização de celular no DevTools, teste diferentes larguras e confira menus, formulários, imagens e a ausência de rolagem horizontal indesejada.
-
-Os dados ficam armazenados no navegador utilizado. A verificação visual em celular e a conferência dos demais controles devem ser repetidas antes da apresentação.
-
-## Execução local
-
-Baixe ou clone o repositório e abra o arquivo `index.html` no navegador, mantendo os arquivos e as pastas do projeto juntos. Também é possível usar uma extensão de servidor local, como o Live Server do VS Code.
