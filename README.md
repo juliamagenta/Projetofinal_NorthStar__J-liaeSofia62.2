@@ -3,25 +3,35 @@
 Site de planejamento de intercâmbio desenvolvido por **Júlia Zanini Stein e Sofia França Cavalheiro**, da turma **62.2**.
 O projeto reúne destinos, modalidades de intercâmbio, dicas, custos, documentos, agenda e cronograma em uma interface feita com HTML, CSS e JavaScript.
 
-North Star lista dos critérios de avaliação:
+## Links para entrega
 
-Deploy e Funcionamento — 2,0 pontos A aplicação possui um index.html como página inicial. Os arquivos HTML, CSS e JavaScript estão organizados no projeto. Os arquivos CSS e JavaScript são referenciados corretamente. a URL do deploy da aplicação abre sem tela branca. Não existem erros de carregamento de CSS ou JavaScript identificados após o teste. Não existem pastas expostas ou páginas quebradas.
+- **Aplicação publicada:** https://juliamagenta.github.io/Projetofinal_NorthStar__J-liaeSofia62.2/
+- **Repositório público:** https://github.com/juliamagenta/Projetofinal_NorthStar__J-liaeSofia62.2
 
-Por quê? A aplicação possui todos os arquivos necessários para funcionar no navegador. É necessário apenas confirmar o funcionamento final através da URL publicada.
+## Checklist dos critérios de avaliação
 
-Interatividade sem Recarregamento — 2,0 pontos Os formulários utilizam JavaScript. Os eventos de envio utilizam event.preventDefault(). O cadastro funciona sem recarregar a página. A edição de itens funciona sem recarregar a página. A exclusão de itens funciona sem recarregar a página. As alterações são atualizadas dinamicamente na interface. Existem funcionalidades de cadastro, edição e exclusão utilizando JavaScript.
+| Critério | Valor | Situação | Por que a aplicação atende |
+| --- | --- | --- | --- |
+| Deploy e Funcionamento | 2,0 pontos | Confirmado na verificação realizada | O projeto está publicado no GitHub Pages, com `index.html` como página inicial. As 17 páginas abriram durante a conferência, sem tela branca ou erros de carregamento identificados. Os arquivos HTML, CSS, JavaScript e imagens estão referenciados no projeto. |
+| Interatividade sem Recarregamento | 2,0 pontos | Confirmado na Agenda e em Documentos | Os formulários usam eventos JavaScript e `event.preventDefault()` para impedir o envio padrão. O cadastro, a edição e a exclusão de tarefas e documentos atualizam a interface dinamicamente, sem precisar recarregar a página. |
+| Persistência de Dados | 2,0 pontos | Confirmado nos fluxos testados | A aplicação salva informações no `localStorage` e recupera esses dados ao abrir as páginas. Nos testes da Agenda e de Documentos, os registros e suas alterações permaneceram após atualizar a página com F5; os itens excluídos continuaram removidos após atualizar. O código também armazena informações de perfil, orçamento, planejamento, favoritos e mensagens locais. |
+| Estabilidade do Console | 2,0 pontos | Sem erros do site identificados nos testes realizados | O código possui validações de formulários e tratamento de falhas em operações de armazenamento. Não foram identificados erros do site durante a navegação pelas 17 páginas e os testes de criação, edição, exclusão e persistência na Agenda e em Documentos. |
+| Adaptabilidade, Responsividade e Acessibilidade | 2,0 pontos | Recursos implementados; conferir visualmente em celular antes da apresentação | O HTML possui `meta viewport` e o CSS usa media queries para reorganizar menus, grades e formulários em diferentes larguras. Há textos alternativos em imagens informativas, rótulos nos campos, elementos HTML semânticos, atributos ARIA, link para pular ao conteúdo e indicação visual de foco para navegação por teclado. |
 
-Por quê? Os formulários e ações da aplicação são controlados por JavaScript. O uso de preventDefault() impede o comportamento padrão do formulário e evita o recarregamento da página.
+**Observação sobre a navegação:** o login e o cadastro de perfil redirecionam para a página inicial após salvar. A demonstração de cadastro, edição e exclusão sem recarregamento pode ser feita na Agenda ou em Documentos.
 
-Persistência de Dados — 2,0 pontos A aplicação utiliza localStorage. Os dados são salvos no navegador. Os dados são recuperados quando a aplicação é aberta novamente. Os dados permanecem após atualizar a página com F5. Tarefas podem ser armazenadas. Documentos podem ser armazenados. Informações de perfil podem ser armazenadas. Informações de orçamento podem ser armazenadas. Mensagens e outras informações da aplicação podem ser persistidas.
+## Como conferir os critérios na apresentação
 
-Por quê? A aplicação utiliza localStorage para armazenar os dados. Dessa forma, as informações cadastradas não são perdidas quando a página é atualizada.
+1. Abra a aplicação pelo link do GitHub Pages.
+2. Entre em **Agenda** ou **Requisitos e documentos**.
+3. Cadastre um item, edite suas informações e confira a alteração na tela.
+4. Pressione **F5** e confirme que os dados continuam salvos.
+5. Exclua o item de teste e atualize novamente para confirmar a exclusão.
+6. Abra o **DevTools**, na aba **Console**, e confira se as ações geram erros do site.
+7. Ative a visualização de celular no DevTools, teste diferentes larguras e confira menus, formulários, imagens e a ausência de rolagem horizontal indesejada.
 
-Estabilidade do Console — 2,0 pontos O código possui tratamento de erros em operações importantes. Existem validações nos formulários. Operações com localStorage possuem tratamento adequado. funcionalidades funcionáveis da aplicação. não existem erros em vermelho no Console.
+Os dados ficam armazenados no navegador utilizado. A verificação visual em celular e a conferência dos demais controles devem ser repetidas antes da apresentação.
 
-Por quê? O código possui mecanismos de tratamento de erros e validações. O console foi testado juntamente das suas aplicações e não há erros encontrados.
+## Execução local
 
-Adaptabilidade, Responsividade e Acessibilidade — 2,0 pontos O HTML possui meta name="viewport". O projeto possui CSS responsivo. Existem media queries para diferentes tamanhos de tela. O layout se adapta a celulares. O layout se adapta a tablets. Os grids são reorganizados em telas menores. Os formulários se adaptam a telas pequenas. O menu possui adaptação para dispositivos móveis. As imagens possuem descrições utilizando alt quando necessário. São utilizados atributos aria-label. São utilizados atributos aria-current. São utilizados atributos aria-pressed. Existe link para pular diretamente para o conteúdo. Existem elementos HTML semânticos como main, nav, header, section, article e form. Existe indicação visual de foco para navegação por teclado. Aplicação na visualização de celular do DevTools bem sucedida. Não existe barra de rolagem horizontal indesejada.
-
-Por quê? A aplicação possui recursos de responsividade e acessibilidade. O CSS adapta o layout para diferentes tamanhos de tela e o HTML utiliza elementos semânticos e atributos de acessibilidade para facilitar a utilização por leitores de tela.
-
+Baixe ou clone o repositório e abra o arquivo `index.html` no navegador, mantendo os arquivos e as pastas do projeto juntos. Também é possível usar uma extensão de servidor local, como o Live Server do VS Code.
